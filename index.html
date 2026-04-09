@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Rosa Caveira | Justiça & Morte | Pombagira da Transformação</title>
+    <!-- Favicon visceral -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/pombagiras/melusine/refs/heads/main/Al%C3%AA%20(3)%20(3)%20(1).png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, #0a0105, #000000);
+            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Roboto', sans-serif;
+            color: #f2e6f0;
+            padding: 1rem;
+            padding-bottom: 4rem;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* cabeçalho intenso */
+        .hero {
+            text-align: center;
+            margin: 1rem 0 2rem;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            letter-spacing: 4px;
+            text-shadow: 0 0 8px #9b1d2c, 0 0 20px #4a0e1a;
+            background: linear-gradient(135deg, #ff3366, #aa2e4e, #6a0d2a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: #b87c9c;
+            border-left: 3px solid #c42a4e;
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* GALERIA: duas visualizações */
+        /* Modo HORIZONTAL (scroll horizontal) - padrão */
+        .gallery-horizontal {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            scroll-snap-type: x mandatory;
+            padding: 0.5rem 0.2rem 1rem 0.2rem;
+            margin: 1.5rem 0;
+            border-radius: 28px;
+        }
+        .gallery-horizontal img {
+            width: 85%;
+            min-width: 260px;
+            max-width: 320px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 28px;
+            border: 2px solid #9e2b4b;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+            scroll-snap-align: center;
+            transition: transform 0.2s, filter 0.2s;
+            cursor: pointer;
+            background: #1a0510;
+        }
+        .gallery-horizontal img:active {
+            transform: scale(0.96);
+            filter: brightness(1.2);
+        }
+
+        /* Modo VERTICAL (uma embaixo da outra, cada imagem em sua linha) */
+        .gallery-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .gallery-vertical img {
+            width: 100%;
+            border-radius: 28px;
+            border: 2px solid #c53a62;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+            transition: 0.2s;
+            cursor: pointer;
+            background: #0e0310;
+        }
+        .gallery-vertical img:active {
+            transform: scale(0.98);
+            filter: brightness(1.1);
+        }
+
+        /* Accordion */
+        .accordion {
+            background: rgba(10, 2, 8, 0.75);
+            backdrop-filter: blur(4px);
+            border-radius: 32px;
+            margin-bottom: 1.2rem;
+            border: 1px solid #5a1e3a;
+            overflow: hidden;
+        }
+        .accordion-header {
+            background: linear-gradient(95deg, #1f0310, #2f0a1c);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            touch-action: manipulation;
+            transition: background 0.2s;
+            color: #f3b3d1;
+        }
+        .accordion-header:active {
+            background: #7a1f44;
+            transform: scale(0.98);
+        }
+        .accordion-header span {
+            font-size: 1.8rem;
+            transition: transform 0.3s;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+            background: #030003cc;
+            padding: 0 1rem;
+            border-top: 0px solid #6a1e42;
+        }
+        .accordion.open .accordion-content {
+            max-height: 800px;
+            padding: 1rem;
+            border-top-width: 1px;
+        }
+        .accordion.open .accordion-header span {
+            transform: rotate(180deg);
+        }
+        .inner-text {
+            color: #e0c4dc;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        .inner-text strong {
+            color: #ed688a;
+        }
+
+        /* Quiz */
+        .quiz-area {
+            background: #0d0208dd;
+            border-radius: 44px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid #a73b5f;
+            box-shadow: 0 0 16px rgba(189, 27, 75, 0.4);
+        }
+        .quiz-question {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: #2a0e1c;
+            padding: 0.8rem;
+            border-radius: 28px;
+            text-align: center;
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+        .quiz-btn {
+            background: #1f0c16;
+            border: 1.5px solid #782e4c;
+            padding: 1rem;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffdbeb;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.1s linear;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        .quiz-btn:active {
+            transform: scale(0.97);
+        }
+        .feedback {
+            margin-top: 1rem;
+            font-weight: bold;
+            padding: 0.7rem;
+            border-radius: 2rem;
+            text-align: center;
+        }
+        .correct-feedback {
+            background: #1f4620cc;
+            color: #b5ffb5;
+            border-left: 6px solid #56f056;
+        }
+        .wrong-feedback {
+            background: #5e1a2acc;
+            color: #ffb5b5;
+            border-left: 6px solid #f03a4e;
+        }
+        .next-btn {
+            background: #9e2b57;
+            border: none;
+            padding: 0.9rem;
+            width: 100%;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+            margin-top: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .next-btn:active {
+            background: #cf3f74;
+            transform: scale(0.97);
+        }
+        /* Surpresa Overlay */
+        .surprise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000e0;
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s;
+            flex-direction: column;
+        }
+        .surprise-active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .surprise-card {
+            background: #1c0714;
+            border-radius: 48px;
+            padding: 2rem;
+            max-width: 90%;
+            text-align: center;
+            border: 2px solid #ff3860;
+            animation: pulseBg 1s infinite alternate;
+            box-shadow: 0 0 50px #c02048;
+        }
+        @keyframes pulseBg {
+            0% { background-color: #1c0714; box-shadow: 0 0 10px #b82c54; }
+            100% { background-color: #4e132c; box-shadow: 0 0 35px #ff2f6a; }
+        }
+        .surprise-card img {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 100%;
+            border: 4px solid #e63e6b;
+            margin: 1rem 0;
+        }
+        .close-surprise {
+            background: #6b1f3a;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            color: white;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+        .flower {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1100;
+            font-size: 28px;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            margin-top: 2rem;
+            opacity: 0.6;
+        }
+        button, .quiz-btn, .accordion-header, .next-btn, .close-surprise {
+            cursor: pointer;
+        }
+        .gallery-horizontal::-webkit-scrollbar {
+            height: 5px;
+        }
+        .gallery-horizontal::-webkit-scrollbar-track {
+            background: #2c0e1c;
+            border-radius: 10px;
+        }
+        .gallery-horizontal::-webkit-scrollbar-thumb {
+            background: #aa2e4e;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>⚰️ ROSA CAVEIRA ⚰️</h1>
+        <p>Justiça profunda • Morte simbólica • Renascimento</p>
+        <div style="width: 60px; height: 4px; background: #b12b54; margin: 12px auto;"></div>
+    </div>
+
+    <!-- Seções accordion -->
+    <div class="accordion" id="accordion1">
+        <div class="accordion-header" onclick="toggleAccordion(this)">🌹 Quem é Rosa Caveira? <span>▼</span></div>
+        <div class="accordion-content">
+            <div class="inner-text">
+                <strong>⚖️ Pombagira da Justiça e da Morte</strong><br>
+                Rosa Caveira rege os ciclos de fim e começo. Sua energia é intensa, ligada à transformação profunda, à verdade e ao acerto de contas. 
+                Não é invocada sem preparo, pois ela despedaça ilusões. Sábado é seu dia, lua nova (renovação) e lua cheia (justiça). 
+                Cores: <span style="color:#c03b5e">Vermelho-sangue</span>, Preto, Roxo. Ela caminha sobre ossos com a elegância de uma rosa.
+            </div>
+        </div>
+    </div>
+    <div class="accordion" id="accordion2">
+        <div class="accordion-header" onclick="toggleAccordion(this)">🕯️ Oferendas & Símbolos <span>▼</span></div>
+        <div class="accordion-content">
+            <div class="inner-text">
+                🔮 <strong>Velas pretas ou vermelhas</strong> | 🍷 Vinho tinto (verdade) | 🌹 Rosas vermelhas e pretas | 💀 Ossos simbólicos, moedas, foice, espelho preto, rosário de ossos.<br>
+                Locais: Cemitérios (calunga pequena), encruzilhadas escuras. A balança sinaliza justiça, a foice o corte final que liberta.
+            </div>
+        </div>
+    </div>
+    <div class="accordion" id="accordion3">
+        <div class="accordion-header" onclick="toggleAccordion(this)">🌑 Transformação & Renascimento <span>▼</span></div>
+        <div class="accordion-content">
+            <div class="inner-text">
+                Rosa Caveira não salva — ela <strong>desperta</strong>. Auxilia no corte de ciclos tóxicos, cura traumas, devolve o eixo e a dignidade. 
+                Seu trabalho é plutoniano: profundidade, silêncio interno e reconstrução da alma. A morte não é o fim, mas travessia.
+            </div>
+        </div>
+    </div>
+
+    <!-- GALERIA DINÂMICA: inicialmente horizontal (scroll), ao clicar em qualquer imagem vira vertical -->
+    <div id="galleryWrapper"></div>
+
+    <!-- QUIZ -->
+    <div class="quiz-area" id="quizContainer">
+        <div style="text-align:center; margin-bottom:12px;">✧ TESTE SEU VÍNCULO COM A CAVEIRA ROSA ✧</div>
+        <div class="quiz-question" id="questionText">Carregando perguntas...</div>
+        <div class="quiz-options" id="optionsContainer"></div>
+        <div class="feedback" id="feedbackMsg"></div>
+        <button class="next-btn" id="nextQuizBtn">⚡ PRÓXIMA ⚡</button>
+    </div>
+    <footer>🌙 "A verdade que ela carrega é libertadora" — Salve Rosa Caveira! 🥀</footer>
+</div>
+
+<!-- overlay surpresa -->
+<div id="surpriseOverlay" class="surprise-overlay">
+    <div class="surprise-card" id="surpriseCard">
+        <h2 style="color:#ff6680;">⚰️ ROSA DESPERTA ⚰️</h2>
+        <img id="surpriseImg" src="https://raw.githubusercontent.com/pombagiras/melusine/refs/heads/main/rosa_caveira_1.png" alt="Rosa Caveira">
+        <p style="margin: 1rem;">A justiça se manifesta! Ela te observa além do véu.</p>
+        <button class="close-surprise" id="closeSurpriseBtn">Fechar portal</button>
+    </div>
+</div>
+
+<script>
+    // Lista das 10 imagens
+    const imageUrls = [
+        "https://raw.githubusercontent.com/pombagiras/rosa-caveira-/refs/heads/main/Rosa%20Caveira%20(1).png",
+        "https://raw.githubusercontent.com/pombagiras/rosa-caveira-/refs/heads/main/Rosa%20Caveira%20(10).png",
+        "https://raw.githubusercontent.com/pombagiras/rosa-caveira-/refs/heads/main/Rosa%20Caveira%20(2).png",
+        "https://raw.githubusercontent.com/pombagiras/rosa-caveira-/refs/heads/main/Rosa%20Caveira%20(3).png",
+        "https://raw.githubusercontent.com/pombagiras/rosa-caveira-/refs/heads/main/Rosa%20Caveira%20(4).png",
+        "https://raw.githubusercontent.com/pombagiras/rosa-caveira-/refs/heads/main/Rosa%20Caveira%20(5).png",
+        "https://raw.githubusercontent.com/pombagiras/rosa-caveira-/refs/heads/main/Rosa%20Caveira%20(6).png",
+        "https://raw.githubusercontent.com/pombagiras/rosa-caveira-/refs/heads/main/Rosa%20Caveira%20(7).png",
+        "https://raw.githubusercontent.com/pombagiras/rosa-caveira-/refs/heads/main/Rosa%20Caveira%20(8).png",
+        "https://raw.githubusercontent.com/pombagiras/rosa-caveira-/refs/heads/main/Rosa%20Caveira%20(9).png"
+    ];
+
+    let currentMode = 'horizontal'; // 'horizontal' ou 'vertical'
+    const galleryWrapper = document.getElementById('galleryWrapper');
+
+    // Função para renderizar galeria no modo atual
+    function renderGallery() {
+        if (currentMode === 'horizontal') {
+            // Layout horizontal: scroll horizontal
+            const div = document.createElement('div');
+            div.className = 'gallery-horizontal';
+            imageUrls.forEach(url => {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = "Rosa Caveira imagem";
+                img.loading = "lazy";
+                // evento de clique: muda para modo vertical
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(30);
+                    currentMode = 'vertical';
+                    renderGallery();
+                });
+                div.appendChild(img);
+            });
+            galleryWrapper.innerHTML = '';
+            galleryWrapper.appendChild(div);
+        } 
+        else { // modo vertical: uma embaixo da outra (horizontalmente cada imagem ocupa 100% da largura)
+            const div = document.createElement('div');
+            div.className = 'gallery-vertical';
+            imageUrls.forEach(url => {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = "Rosa Caveira manifestação vertical";
+                img.loading = "lazy";
+                // evento de clique no modo vertical: retorna para horizontal (scroll)
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(30);
+                    currentMode = 'horizontal';
+                    renderGallery();
+                });
+                div.appendChild(img);
+            });
+            galleryWrapper.innerHTML = '';
+            galleryWrapper.appendChild(div);
+        }
+    }
+
+    // Inicializa a galeria no modo horizontal
+    renderGallery();
+
+    // ================ QUIZ com 20 perguntas fortes ==================
+    const quizData = [
+        { q: "Qual é a principal função espiritual atribuída à entidade Rosa Caveira?", correct: "Ela atua como a Pombagira da justiça profunda, da morte simbólica e do renascimento.", options: ["Ela atua como a Pombagira da justiça profunda, da morte simbólica e do renascimento.", "Ela apenas protege caminhos comuns.", "Ela governa o amor frágil."] },
+        { q: "No simbolismo de Rosa Caveira, o que a 'rosa' representa?", correct: "Representa a beleza, a sedução, a força feminina e o mistério.", options: ["Apenas a fragilidade.", "Representa a beleza, a sedução, a força feminina e o mistério.", "O esquecimento."] },
+        { q: "Qual é o significado simbólico da 'caveira' na manifestação desta entidade?", correct: "Simboliza o fim, a lucidez, o corte, a justiça e o destino inevitável.", options: ["Simboliza o fim, a lucidez, o corte, a justiça e o destino inevitável.", "Medo sem sentido.", "Apenas a morte biológica."] },
+        { q: "Como Rosa Caveira se diferencia de Exu em termos de regência?", correct: "Enquanto Exu rege o movimento, Rosa Caveira rege o acerto de contas e a justiça.", options: ["Enquanto Exu rege o movimento, Rosa Caveira rege o acerto de contas e a justiça.", "Ambos regem igualmente a justiça.", "Rosa Caveira não tem regência."] },
+        { q: "Em quais situações específicas as pessoas costumam procurar a intercessão de Rosa Caveira?", correct: "Quando houve injustiça, traição, desonra, abuso ou necessidade de recuperar a própria voz.", options: ["Quando houve injustiça, traição, desonra, abuso ou necessidade de recuperar a própria voz.", "Para ganhos materiais fáceis.", "Para amarrações amorosas leves."] },
+        { q: "Qual é o pré-requisito para que a justiça de Rosa Caveira se manifeste?", correct: "A justiça dela não pode ser comprada — ela deve ser merecida pela pessoa.", options: ["A justiça dela não pode ser comprada — ela deve ser merecida pela pessoa.", "Ofertar muito dinheiro.", "Rezar em latim."] },
+        { q: "O que define a 'morte' no contexto do trabalho espiritual de Rosa Caveira?", correct: "A morte não é vista como fim, mas como uma travessia ou transformação plutoniana.", options: ["Fim absoluto da existência.", "A morte não é vista como fim, mas como uma travessia ou transformação plutoniana.", "Punição eterna."] },
+        { q: "Quais processos emocionais Rosa Caveira auxilia a operar?", correct: "Ela auxilia no corte de ciclos tóxicos, renascimento emocional e cura de traumas.", options: ["Apenas alegria superficial.", "Ela auxilia no corte de ciclos tóxicos, renascimento emocional e cura de traumas.", "Esquecimento total."] },
+        { q: "Complete: Rosa Caveira não salva o indivíduo, ela o _____", correct: "desperta", options: ["condena", "desperta", "abandona"] },
+        { q: "O que o símbolo da 'foice' representa na estética de Rosa Caveira?", correct: "Representa o corte final que liberta o indivíduo.", options: ["Representa o corte final que liberta o indivíduo.", "Apenas colheita física.", "Destruição sem propósito."] },
+        { q: "Qual é a função do 'espelho preto' entre os símbolos da entidade?", correct: "Promover o confronto direto e profundo com o próprio eu.", options: ["Promover o confronto direto e profundo com o próprio eu.", "Enfeitar altares.", "Afugentar espíritos leves."] },
+        { q: "Na simbologia de Rosa Caveira, o que a 'balança' sinaliza?", correct: "Sinaliza a justiça equilibrada.", options: ["Sinaliza a justiça equilibrada.", "Peso material.", "Caos."] },
+        { q: "Qual dia da semana é tradicionalmente associado a Rosa Caveira?", correct: "Sábado.", options: ["Sábado.", "Domingo.", "Sexta-feira."] },
+        { q: "Qual é o propósito da Lua Nova no tempo de regência desta entidade?", correct: "A Lua Nova é o tempo destinado à renovação total.", options: ["A Lua Nova é o tempo destinado à renovação total.", "Favorecer ilusões.", "Despertar caos."] },
+        { q: "O que a Lua Cheia favorece nos trabalhos com Rosa Caveira?", correct: "Favorece a justiça e a revelação de verdades.", options: ["Favorece a justiça e a revelação de verdades.", "Esconder segredos.", "Confusão."] },
+        { q: "O que a cor preta comunica energeticamente no culto a Rosa Caveira?", correct: "Representa o silêncio da morte que ensina.", options: ["Representa o silêncio da morte que ensina.", "Tristeza vazia.", "Inexistência."] },
+        { q: "Qual é o significado energético da cor vermelho-sangue para esta Pombagira?", correct: "Representa o pulso da vida que desperta.", options: ["Representa o pulso da vida que desperta.", "Violência apenas.", "Paixão romântica."] },
+        { q: "Para que serve a cor roxa na simbologia de Rosa Caveira?", correct: "Serve para a visão espiritual que rompe os véus da ilusão.", options: ["Serve para a visão espiritual que rompe os véus da ilusão.", "Apenas realeza.", "Feminilidade comum."] },
+        { q: "Quais tipos de velas são recomendados em oferendas simbólicas para Rosa Caveira?", correct: "Velas pretas ou vermelho-escuras.", options: ["Velas pretas ou vermelho-escuras.", "Velas brancas somente.", "Velas amarelas."] },
+        { q: "Por que o vinho tinto é incluído em suas oferendas?", correct: "Representa a verdade, a entrega e a lucidez.", options: ["Representa a verdade, a entrega e a lucidez.", "Para embriaguez espiritual.", "Simboliza festa."] }
+    ];
+
+    let currentQuestionIndex = 0;
+    let surpriseTriggered = false;
+    const questionEl = document.getElementById('questionText');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const feedbackEl = document.getElementById('feedbackMsg');
+    const nextBtn = document.getElementById('nextQuizBtn');
+
+    function vibrate() {
+        if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(40);
+    }
+
+    function loadQuestion() {
+        if (currentQuestionIndex >= quizData.length) {
+            if (!surpriseTriggered) {
+                showSurpriseWithFlowers();
+                surpriseTriggered = true;
+            }
+            questionEl.innerText = "✨ Você cruzou o espelho de Rosa Caveira ✨";
+            optionsContainer.innerHTML = '<div style="text-align:center; padding:1rem;">A verdade te transformou. A Caveira Rosa te observa.</div>';
+            feedbackEl.innerHTML = '';
+            nextBtn.style.display = 'none';
+            return;
+        }
+        const data = quizData[currentQuestionIndex];
+        questionEl.innerText = `${currentQuestionIndex+1}. ${data.q}`;
+        let optsHtml = '';
+        data.options.forEach(opt => {
+            optsHtml += `<div class="quiz-btn" data-answer="${opt.replace(/"/g, '&quot;')}">🌹 ${opt}</div>`;
+        });
+        optionsContainer.innerHTML = optsHtml;
+        feedbackEl.innerHTML = '';
+        document.querySelectorAll('.quiz-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if (surpriseTriggered && currentQuestionIndex >= quizData.length) return;
+                const selected = btn.getAttribute('data-answer');
+                const isCorrect = (selected === data.correct);
+                vibrate();
+                if (isCorrect) {
+                    feedbackEl.innerHTML = '<div class="feedback correct-feedback">✅ ACERTO! Rosa Caveira reconhece sua conexão.</div>';
+                    if (window.navigator.vibrate) window.navigator.vibrate([30, 50, 30]);
+                } else {
+                    feedbackEl.innerHTML = `<div class="feedback wrong-feedback">❌ ERRO. A verdade é: "${data.correct}". Estude os mistérios da caveira.</div>`;
+                    if (window.navigator.vibrate) window.navigator.vibrate(80);
+                }
+                document.querySelectorAll('.quiz-btn').forEach(b => b.style.pointerEvents = 'none');
+            });
+        });
+    }
+
+    nextBtn.addEventListener('click', () => {
+        if (currentQuestionIndex < quizData.length) {
+            currentQuestionIndex++;
+            loadQuestion();
+            setTimeout(() => {
+                document.querySelectorAll('.quiz-btn').forEach(b => b.style.pointerEvents = 'auto');
+            }, 10);
+        } else if (!surpriseTriggered) {
+            showSurpriseWithFlowers();
+            surpriseTriggered = true;
+            nextBtn.style.display = 'none';
+        }
+    });
+
+    function showSurpriseWithFlowers() {
+        const overlay = document.getElementById('surpriseOverlay');
+        overlay.classList.add('surprise-active');
+        for (let i = 0; i < 66; i++) createFallingFlower();
+        if (window.navigator.vibrate) window.navigator.vibrate([100, 80, 100]);
+        const closeBtn = document.getElementById('closeSurpriseBtn');
+        closeBtn.onclick = () => {
+            overlay.classList.remove('surprise-active');
+            document.querySelectorAll('.flower').forEach(f => f.remove());
+        };
+    }
+
+    function createFallingFlower() {
+        const flowerDiv = document.createElement('div');
+        flowerDiv.classList.add('flower');
+        const icons = ['🌹', '🥀', '💀', '🌺', '🌸', '⚘', '🌷', '🕷️', '🌑'];
+        flowerDiv.innerText = icons[Math.floor(Math.random() * icons.length)];
+        flowerDiv.style.fontSize = (Math.random() * 28 + 18) + 'px';
+        flowerDiv.style.left = Math.random() * 100 + '%';
+        flowerDiv.style.animationDuration = Math.random() * 3 + 2 + 's';
+        flowerDiv.style.animationDelay = Math.random() * 0.5 + 's';
+        document.body.appendChild(flowerDiv);
+        setTimeout(() => flowerDiv.remove(), 5000);
+    }
+
+    window.toggleAccordion = function(header) {
+        const accordion = header.closest('.accordion');
+        accordion.classList.toggle('open');
+        vibrate();
+    };
+
+    loadQuestion();
+    // Vibração em accordions e elementos interativos extras
+    document.querySelectorAll('.accordion-header, .next-btn, .close-surprise').forEach(el => {
+        if(el) el.addEventListener('click', () => vibrate());
+    });
+</script>
+</body>
+</html>
